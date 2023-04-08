@@ -31,7 +31,7 @@ window.addEventListener('load', (e) => {
     document.querySelector('.btnValider').addEventListener('click', (e) => {
     // let words = JSON.parse(localStorage.getItem("words"));
     // let word = words[0];
-    let word = ('Enjoyed').toUpperCase();
+    let word = ('Enjayed').toUpperCase();
     let letter = word.split('');
     console.log(letter);
     let word_guess = document.querySelector('#guess').value.toUpperCase();
@@ -46,11 +46,17 @@ window.addEventListener('load', (e) => {
     console.log(letters_guess);
     for (let i =0; i < letters_guess.length; i++) {
       if (letter[i] == letters_guess[i]) {
-   
         console.log(tab[i])
         tab[i].innerText =letter[i];
-          
+        tab[i].classList.add('letter');
+        tab[i].classList.add('jaune');    
       }
+
+      else  {
+        tab[i].innerText = letters_guess[i];
+        tab[i].classList.add('orange');
+        tab[i].classList.add('letters_guess');
+        }
       
     }
 

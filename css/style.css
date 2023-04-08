@@ -26,10 +26,36 @@ form {
     border-radius: 50px;
     border: 1px solid blue;
     color: white;
+    display: flex;
+    align-items:center;
+    justify-content : center;
  
 }
 
 .letter {
     color: white;
-    font-size: 20px;
+    font-size: 70px;
+}
+
+.letters_guess {
+    color: white;
+    font-size: 70px;
+}
+
+.jaune {
+    background-color: yellow;
+    border: 1px solid yellow;
+    border-radius: 60px;
+}
+
+.orange {
+    background-color: orange;
+    border: 1px solid orange;
+    border-radius: 60px;
+}
+
+.red {
+    background-color: red;
+    border: 1px solid red;
+    border-radius: 60px;
 }
