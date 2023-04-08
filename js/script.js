@@ -31,7 +31,7 @@ window.addEventListener('load', (e) => {
     document.querySelector('.btnValider').addEventListener('click', (e) => {
     // let words = JSON.parse(localStorage.getItem("words"));
     // let word = words[0];
-    let word = ('Enjayed').toUpperCase();
+    let word = ('anathem').toUpperCase();
     let letter = word.split('');
     console.log(letter);
     let word_guess = document.querySelector('#guess').value.toUpperCase();
@@ -43,27 +43,50 @@ window.addEventListener('load', (e) => {
     }
     
     let letters_guess = word_guess.split('');
-    console.log(letters_guess);
-    for (let i =0; i < letters_guess.length; i++) {
-      if (letter[i] == letters_guess[i]) {
-        console.log(tab[i])
-        tab[i].innerText =letter[i];
-        tab[i].classList.add('letter');
-        tab[i].classList.add('jaune');    
-      }
-
-      else  {
+    
+    // for (let i = 0; i < letters_guess.length; i++) { 
+    //   const index = letter.indexOf(letters_guess[i]);
+    //   if  (index === -1)  {
+    //       tab[i].innerText = letters_guess[i];
+    //       tab[i].classList.add('letter');
+    //       console.log(tab[i]);
+    //   } else {
+    //     if  (index === i) { 
+    //       tab[i].innerText = letters_guess[i];
+    //       tab[i].classList.add('letter');
+    //       tab[i].classList.add('red');
+    //       found = true;
+    //     } 
+    //   else {
+    //       tab[i].innerText = letters_guess[i];
+    //       tab[i].classList.add('letter');
+    //       tab[i].classList.add('jaune');
+    //       console.log(tab[i]);      
+    //   } 
+    // }
+    for(let i = 0; i < letter.length; i++) {
+      if(letter[i] === letters_guess[i]) {
         tab[i].innerText = letters_guess[i];
-        tab[i].classList.add('orange');
-        tab[i].classList.add('letters_guess');
+        tab[i].classList.add('letter');
+        tab[i].classList.add('red');
+      } else {
+        let found = false;
+        for(let j = 0; i < letters_guess.length; j++) {
+          if(letter[i] === letters_guess[j] && i !== j) {
+            tab[i].innerText = letters_guess[i];
+            tab[i].classList.add('letter');
+            tab[i].classList.add('jaune');
+            console.log(tab[i]);      
+            found = true;
+            break;
+          }
         }
-      
+        if(!found) {
+          tab[i].innerText = letters_guess[i];
+          tab[i].classList.add('letter');
+          console.log(tab[i]);
+        }
+      }
     }
 
-
-  })
-
-
-
-});
-
+    },)})
