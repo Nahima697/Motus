@@ -31,26 +31,48 @@ window.addEventListener('load', (e) => {
     document.querySelector('.btnValider').addEventListener('click', (e) => {
     // let words = JSON.parse(localStorage.getItem("words"));
     // let word = words[0];
-    function showCase (grid) {
       let word = ('animals').toUpperCase();
       let letter = word.split('');
       console.log(letter);
       let word_guess = document.querySelector('#guess').value.toUpperCase();
       console.log(word_guess)
       let tab = [];
-      let grille = document.querySelectorAll('.grid.one .case'); 
-      for (i = 0; i < grille.length; i++) {
-        tab.push(grille[i]);
-      }
-    }
-
-    function compareLetters(letter, letters_guess) {
       let letters_guess = word_guess.split('');
-      const usedIndices = [];
+      // generateGrid () {
+      //   let tab = [];
+      //   let grille = document.querySelectorAll('.grid.one .case'); 
+      //   for (i = 0; i < grille.length; i++) {
+      //     tab.push(grille[i]);
+      // }
+
+      
+     
+      // }
+    // }
+
+    function getWordsList()
+{
+    const animals = new Word("animals","7","English");
+    const animaux = new Word("animaux","7", "Français");
+    const jaccuzi = new Word ("Jacuzzi", "7","Français");
+    const hockeys  = new Word("hockeys ","7", "Français");
+    const cryptez = new Word("cryptez","7", "Français");
+
+    return [ 
+        animals,
+        animaux,
+        jaccuzi,
+        hockeys,
+        cryptez
+    ];
+}
+
+    function compareLetters() {
+      
       for (let i = 0; i < letters_guess.length; i++) { 
         let found = false;
-          let jaune = false;
-          let rouge = false;
+        let jaune = false;
+        let rouge = false;
           for (let j = 0; j < letter.length; j++) {
             if (letters_guess[i] === letter[j]) {
               found = true;
@@ -86,9 +108,9 @@ window.addEventListener('load', (e) => {
             console.log(jaune);
           }
         }
-      }
-  
+      } 
     }
+    
     
     
     
