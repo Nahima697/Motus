@@ -19,11 +19,6 @@ window.addEventListener('load', () => {
             caseElement.classList.add("case");
             // sauvegarder la lettre dans le tableau
             this.letters.push(this.word.letters[i]);
-            let letterElement = document.createElement("div");
-            letterElement.classList.add("letter", "hidden");
-            letterElement.dataset.index = i;
-            letterElement.innerText = this.word.letters[i];
-            caseElement.appendChild(letterElement);
             gridElement.appendChild(caseElement);
           }
           return gridElement;
@@ -36,7 +31,6 @@ window.addEventListener('load', () => {
           this.word = wordsList[randomIndex];
           this.nbLetters = this.word.nbLetters; 
           this.grid = this.generateGrid();
-      
           // Ajouter la grille à la page
           document.body.appendChild(this.grid);
       

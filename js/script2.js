@@ -1,6 +1,6 @@
 "use strict";
 window.addEventListener('DOMContentLoaded', (event) => {
-   
+
 class Word {
   constructor(word, nbLetters, language) {
     this.word = word;
@@ -27,72 +27,97 @@ class Word {
 }
 
 class Game {
-    constructor() {
-      this.word = null;
-      this.nbLetters = this.nbLetters;
-      this.letters = []; // tableau pour sauvegarder les lettres de chaque cellule
+    constructor(nbLetters, nbEssaie) {
+      this.nbLetters = nbLetters;
+      this.nbEssaie = 7;
+   
     }
-  
-    generateGrid() {
-      let gridElement = document.createElement("div");
-      gridElement.classList.add("grid");
-      
-      for (let i = 0; i < this.nbLetters; i++) {
-        let caseElement = document.createElement("div");
-        caseElement.classList.add("case");
-        caseElement.innerText = letters_guess[i];
-        gridElement.appendChild(caseElement);
-      };
-      
-      return gridElement;
-    };
 
+    generateGrid() {
+        let gridElement = document.createElement("div");
+        gridElement.classList.add("grid");
+    
+        // création des lignes de la grille
+        for (let i = 0; i < 7; i++) {
+          let rowElement = document.createElement("div");
+          rowElement.classList.add("row");
+    
+          // création des cases de chaque ligne
+          for (let j = 0; j < this.nbLetters; j++) { 
+            let caseElement = document.createElement("div");
+            caseElement.classList.add("case");
+            rowElement.appendChild(caseElement);
+          }
+    
+          gridElement.appendChild(rowElement);
+        }
+        
+        return gridElement;
+      }
     compareLetters() {
-      for (let i = 0; i < this.nbLetters; i++) {
+        
+        const btnValider = document.querySelector(".btnValider");
+        btnValider.addEventListener("click", () => {
+        const word_guess = document.querySelector("#guess").value.toUpperCase();
+        const letters_guess = word_guess.split('');
+        console.log(letters_guess);
+        console.log(this.word.letters)
+        for (let i = 0; i < letters_guess.length; i++) {
         let found = false;
         let jaune = false;
         let rouge = false;
-        for (let j = 0; j < this.nbLetters; j++) {
-          if (letters_guess === this.letters[j]) {
+        for (let j = 0; j < this.word.letters.length; j++) {
+            if (this.word.letters[j] === letters_guess[i]) {
             found = true;
             if (i === j) {
-              letters_guess[j].classList.add("red");
-              rouge = true;
+                document.querySelectorAll('.case')[i].innerText = letters_guess[i];
+                document.querySelectorAll('.case')[i].classList.add("letter");
+                document.querySelectorAll('.case')[i].classList.add("red");
+                rouge = true;
             } else {
-              letters_guess[j].classList.add("jaune");
-              jaune = true;
+                document.querySelectorAll('.case')[i].innerText = letters_guess[i];
+                document.querySelectorAll('.case')[i].classList.add("letter");
+                document.querySelectorAll('.case')[i].classList.add("jaune");
+                jaune = true;
             }
-          }
+            }
         }
         if (found !== true) {
-          
+            document.querySelectorAll('.case')[i].innerText = letters_guess[i];
+            console.log(document.querySelectorAll('.case')) 
+            document.querySelectorAll('.case')[i].classList.add("letter");
         } else if (rouge && jaune) {
-          letters_guess[i].classList.remove("jaune");
-          letters_guess[i].classList.add("red");
+            document.querySelectorAll('.case')[i].innerText = letters_guess[i];
+            document.querySelectorAll('.case')[i].classList.add("letter");
+            document.querySelectorAll('.case')[i].classList.remove("jaune");
+            document.querySelectorAll('.case')[i].classList.add("red");
         }
-      }
+        }
+    });
     }
-  
-    start() {
-      // Générer la grille
-      const wordsList = Word.getWordsList();
-      console.log(wordsList);
-      const randomIndex = Math.floor(Math.random() * wordsList.length);
-      this.word = wordsList[randomIndex];
-      this.nbLetters = this.word.nbLetters;
-      const grid = this.generateGrid();
-  
-      // Ajouter la grille à la page
-      document.body.appendChild(grid);
-  
-      // Ajouter un event listener sur le bouton "valider"
-      const btnValider = document.querySelector(".btnValider");
-      btnValider.addEventListener("click", () => {
-      const word_guess = document.querySelector("#guess").value.toUpperCase();
-      const letters_guess = word_guess.split('');
+
+
+      start() {
+        
+        // Générer la grille
+        const wordsList = Word.getWordsList();
+        console.log(wordsList);
+        const randomIndex = Math.floor(Math.random() * wordsList.length);
+        this.word = wordsList[randomIndex];
+        this.nbLetters = this.word.nbLetters;
+        const grid = this.generateGrid();
+      
+        // Ajouter la grille à la page
+        document.body.appendChild(grid);
+      
+        // Ajouter un écouteur d'événement à l'élément d'entrée pour mettre à jour this.letters_guess
+        console.log(this.letters_guess);
+        
+        // Appeler la méthode compareLetters
         this.compareLetters();
-      });
-    }
+      }
+      
+      
   
  
   }

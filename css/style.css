@@ -17,7 +17,7 @@ form {
     grid-gap: 10px;
     column-gap: 2px;
     width: 50%;
-    
+    height: 500px;
     background-color: #0d6efd;
   }
   
@@ -58,11 +58,3 @@ form {
 }
 
 
-.letter.hidden {
-  
-    visibility: hidden;
-    } 
-    
- .letter.visible {
-      visibility: visible;
-    }
