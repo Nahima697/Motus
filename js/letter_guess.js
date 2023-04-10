@@ -1,27 +1,34 @@
-"use strict";
+"user strict";
+
 
 class Word {
-    name;
-    language;
-    lettres;
-    constructor (name, letters, language) {
-        this.name = name;
-        this.nbletters =letters;
-        this.language = language;
-    }
-
-    
-    generateRow()
-    {
-        let section = document.createElement("section");
-        let i = 0;
-        while (i < this.letters.length) {
-            section.appendChild(this.letters[i].generateGrid());
-            i++;
-        }
-        return section;
-    }
-    
-
+constructor(word, nbLetters,letters, language) {
+  this.word = word;
+  this.nbLetters = nbLetters;
+  this.letters = this.word.split('');
+  this.language = language;
 }
+ getWordsList() {
+    const animals = new Word("ANIMALS", 7, "English")
+    const animaux = new Word("ANIMAUX", 7, "Français");
+    const jaccuzi = new Word("JACUZZI", 7, "Français");
+    const hockeys = new Word("HOCKEYS", 7, "Français");
+    const cryptez = new Word("CRYPTEZ", 7, "Français");
+    const chien = new Word("CHIEN", 5, "Français");
+    const chat = new Word("CHAT", 4, "Français");
+    const pomme = new Word("POMME", 5, "Français");
+    const apple = new Word("APPLE", 5, "English");
+    const banana = new Word("BANANA", 6, "English");
+    
+    return [animals, animaux, jaccuzi, hockeys, cryptez, chien, chat, pomme, apple, banana];
+    }
+}
+
+
+
+  
+
+    
+
+
 

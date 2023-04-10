@@ -10,16 +10,17 @@ form {
  
 }
 .grid {
+    --nbletters: 7;
     margin: auto;
     display: grid;
-    grid-template-columns: repeat(7, 1fr);
+    grid-template-columns: repeat(var(--nbletters), 1fr);
     grid-gap: 10px;
     column-gap: 2px;
-    width: 45%;
-    height: 100px;
-    background-color: #0d6efd;
+    width: 50%;
     
-}
+    background-color: #0d6efd;
+  }
+  
 
 
 .case {
@@ -55,3 +56,13 @@ form {
     border: 1px solid red;
     border-radius: 60px;
 }
+
+
+.letter.hidden {
+  
+    visibility: hidden;
+    } 
+    
+ .letter.visible {
+      visibility: visible;
+    }

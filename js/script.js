@@ -13,132 +13,70 @@ window.addEventListener('load', (e) => {
   //   .then(response => window.localStorage.setItem("words",JSON.stringify(response)))
   //   .catch(err => console.error(err));
 
+// let words = JSON.parse(localStorage.getItem("words"));
+    // let word = words[0];
 
-    // CREER UN TABLEAU DES CASES
-
-    // function getTab () {
-      
-    //   }
-    //   console.log (tab);
-      
-    // }
-
- 
-
+  // EVENT LISTENER DU BOUTON VALIDER
   // EVENT LISTENER DU BOUTON VALIDER
 
     
-    document.querySelector('.btnValider').addEventListener('click', (e) => {
-    // let words = JSON.parse(localStorage.getItem("words"));
-    // let word = words[0];
-      let word = ('animals').toUpperCase();
-      let letter = word.split('');
-      console.log(letter);
-      let word_guess = document.querySelector('#guess').value.toUpperCase();
-      console.log(word_guess)
-      let tab = [];
-      let letters_guess = word_guess.split('');
-      // generateGrid () {
-      //   let tab = [];
-      //   let grille = document.querySelectorAll('.grid.one .case'); 
-      //   for (i = 0; i < grille.length; i++) {
-      //     tab.push(grille[i]);
-      // }
+// EVENT LISTENER DU BOUTON VALIDER
 
-      
-     
-      // }
-    // }
+    
+  document.querySelector('.btnValider').addEventListener('click', (e) => { 
+  // let words = JSON.parse(localStorage.getItem("words"));
+  // let word = words[0];
+  let word = ('animals').toUpperCase();
+  let letter = word.split('');
+  console.log(letter);
+  let word_guess = document.querySelector('#guess').value.toUpperCase();
+  console.log(word_guess)
+  let tab = [];
+  let letters_guess = word_guess.split('');
+  let grille = document.querySelectorAll('.grid.one .case'); 
+    for (i = 0; i < grille.length; i++) {
+      tab.push(grille[i]);
+    }
 
-    function getWordsList()
-{
-    const animals = new Word("animals","7","English");
-    const animaux = new Word("animaux","7", "Français");
-    const jaccuzi = new Word ("Jacuzzi", "7","Français");
-    const hockeys  = new Word("hockeys ","7", "Français");
-    const cryptez = new Word("cryptez","7", "Français");
-
-    return [ 
-        animals,
-        animaux,
-        jaccuzi,
-        hockeys,
-        cryptez
-    ];
-}
-
-    function compareLetters() {
-      
-      for (let i = 0; i < letters_guess.length; i++) { 
-        let found = false;
-        let jaune = false;
-        let rouge = false;
-          for (let j = 0; j < letter.length; j++) {
-            if (letters_guess[i] === letter[j]) {
-              found = true;
-              if (i === j) {
-                tab[i].innerText = letters_guess[i];
-                tab[i].classList.add('letter');
-                tab[i].classList.add('red');
-                rouge = true;
-                console.log(rouge);
-                console.log(jaune);
-              } else {
-                tab[i].innerText = letters_guess[i];
-                tab[i].classList.add('letter');
-                tab[i].classList.add('jaune');
-                jaune = true;
-                console.log(rouge);
-                console.log(jaune);
-              }
+    for (let i = 0; i < letters_guess.length; i++) { 
+      let found = false;
+      let jaune = false;
+      let rouge = false;
+        for (let j = 0; j < letter.length; j++) {
+          if (letters_guess[i] === letter[j]) {
+            found = true;
+            if (i === j) {
+              tab[i].innerText = letters_guess[i];
+              tab[i].classList.add('letter');
+              tab[i].classList.add('red');
+              rouge = true;
+              console.log(rouge);
+              console.log(jaune);
+            } else {
+              tab[i].innerText = letters_guess[i];
+              tab[i].classList.add('letter');
+              tab[i].classList.add('jaune');
+              jaune = true;
+              console.log(rouge);
+              console.log(jaune);
             }
           }
-          if (found !== true) {
-            tab[i].innerText = letters_guess[i];
-            tab[i].classList.add('letter');
-            console.log(tab[i]);
-            console.log(rouge);
-            console.log(jaune);
-  
-          } else if (rouge && jaune) {
-            tab[i].classList.remove('jaune');
-            tab[i].classList.add('red');
-            console.log(tab[i]);
-            console.log(rouge);
-            console.log(jaune);
-          }
         }
-      } 
-    }
-    
-    
-    
-    
-    
-    
-    // for(let i = 0; i < letter.length; i++) {
-    //   if(letter[i] === letters_guess[i]) {
-    //     tab[i].innerText = letters_guess[i];
-    //     tab[i].classList.add('letter');
-    //     tab[i].classList.add('red');
-    //   } else {
-    //     let found = false;
-    //     for(let j = 0; i < letters_guess.length; j++) {
-    //       if(letter[i] === letters_guess[j] && i !== j) {
-    //         tab[i].innerText = letters_guess[i];
-    //         tab[i].classList.add('letter');
-    //         tab[i].classList.add('jaune');
-    //         console.log(tab[i]);      
-    //         found = true;
-    //         break;
-    //       }
-    //     }
-    //     if(!found) {
-    //       tab[i].innerText = letters_guess[i];
-    //       tab[i].classList.add('letter');
-    //       console.log(tab[i]);
-    //     }
-    //   }
-    // }
+        if (found !== true) {
+          tab[i].innerText = letters_guess[i];
+          tab[i].classList.add('letter');
+          console.log(tab[i]);
+          console.log(rouge);
+          console.log(jaune);
 
-    )})
+        } else if (rouge && jaune) {
+          tab[i].classList.remove('jaune');
+          tab[i].classList.add('red');
+          console.log(tab[i]);
+          console.log(rouge);
+          console.log(jaune);
+        }
+      }
+    } 
+  
+  )})
