@@ -52,4 +52,18 @@ form {
     border: 1px solid blue;
 }
 
+#results {
+    font-size: 70px;
+    font-weight: bold;
+    text-align: center;
+}
 
+.restart {
+    display: flex;
+    justify-content: center;
+    background-color: blue;
+    border: 2px solid white;
+    font-size: 30px;
+    padding: 30px;
+    color: white;
+}
