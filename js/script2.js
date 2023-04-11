@@ -55,7 +55,7 @@ class Game {
         return gridElement;
       }
     compareLetters() {
-        
+        const grid = this.generateGrid();
         const btnValider = document.querySelector(".btnValider");
         btnValider.addEventListener("click", () => {
         const word_guess = document.querySelector("#guess").value.toUpperCase();
