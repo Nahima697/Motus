@@ -41,14 +41,14 @@ form {
     font-size: 70px;
 }
 
-.jaune {
+.misplaced{
     background-color: yellow;
     border: 1px solid yellow;
 }
 
 
-.red {
-    background-color: red;
+.wellplaced{
+    background-color: orangered;
     border: 1px solid blue;
 }
 

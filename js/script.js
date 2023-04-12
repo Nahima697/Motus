@@ -12,7 +12,9 @@ window.addEventListener('load', (e) => {
   })
   .catch(err => console.error(err));
 
-
+  // Afficher le nombre de lettres dans le span
+  document.querySelector('#nbLettres').textContent = this.word.letters.length;
+    
 
 // EVENT LISTENER DU BOUTON VALIDER
 
