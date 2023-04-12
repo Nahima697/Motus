@@ -1,31 +1,19 @@
 "use strict";
 window.addEventListener('DOMContentLoaded', (event) => {
-
-class Word {
-  constructor(word, nbLetters, language) {
-    this.word = word;
-    this.nbLetters = game.nbLetters;
-    this.letters = this.word.split('');
-    this.language = language;
-  }
-
-  static getWordsList() {
-    let wordsList = JSON.parse(localStorage.getItem("words"));
-    if (!wordsList) {
-        return fetch("https://trouve-mot.fr/api/random/10")
-            .then(response => response.json())
-            .then(words => {
-                wordsList = words.map(word => new Word(word.name.toUpperCase()));
-                localStorage.setItem("words", JSON.stringify(wordsList));
-                return wordsList;
-            })
-            .catch(err => console.error(err));
-    } else {
-        return Promise.resolve(wordsList.map(word => new Word(word.name.toUpperCase())));
+  class Word {
+    static async getWordsList() {
+      const response = await fetch("https://trouve-mot.fr/api/sizemin/6/2");
+      const words = await response.json();
+      return words.map(word => new Word(word.name));
     }
-}
   
-}
+    constructor(word) {
+      this.word= word.toUpperCase();
+      this.nbLetters = word.length;
+      this.letters = this.word.split("");
+    }
+  }
+  
 
 class Game {
     constructor(nbLetters, nbTries) {
@@ -39,7 +27,7 @@ class Game {
         gridElement.classList.add("grid");
     
         // création des lignes de la grille
-        for (let i = 0; i < 7; i++) {
+        for (let i = 0; i < this.nbTries; i++) {
           let rowElement = document.createElement("div");
           rowElement.classList.add("row");
           
@@ -93,10 +81,12 @@ class Game {
                      rows[currentRow].querySelectorAll('.case')[i].classList.add("wellplaced");
                     rouge = true;
                 } else {
-                     rows[currentRow].querySelectorAll('.case')[i].innerText = letters_guess[i];
-                     rows[currentRow].querySelectorAll('.case')[i].classList.add("letter");
-                     rows[currentRow].querySelectorAll('.case')[i].classList.add("misplaced");
-                    jaune = true;
+                  if( rouge !== true) {
+                    rows[currentRow].querySelectorAll('.case')[i].innerText = letters_guess[i];
+                    rows[currentRow].querySelectorAll('.case')[i].classList.add("letter");
+                    rows[currentRow].querySelectorAll('.case')[i].classList.add("misplaced");
+                   jaune = true;
+                  }                   
                 }
                 }
             }
@@ -128,45 +118,48 @@ class Game {
             return;
         
             }
-            currentRow++;      
+            currentRow++;
+            console.log(currentRow);      
     });
     
     }
 
-    start() {
-        Word.getWordsList().then(wordsList => {
-            console.log(wordsList);
-            const randomIndex = Math.floor(Math.random() * wordsList.length);
-            this.word = wordsList[randomIndex];
-            this.nbLetters = this.word.nbLetters;
-            // Générer la grille
-            const grid = this.generateGrid();
+    async start() {
+      const wordsList = await Word.getWordsList();
+      console.log(wordsList);
+      const randomIndex = Math.floor(Math.random() * wordsList.length);
+      this.word = wordsList[randomIndex];
+      console.log(this.word);
+      this.nbLetters = this.word.nbLetters;
 
-    
-            // Ajouter la grille à la page
-            document.body.appendChild(grid);
+      // Générer la grille
+      const grid = this.generateGrid();
 
-            // Afficher la première lettre du mot
-            const firstLetter = this.word.letters[0];
-            const firstCase = document.querySelector('.first-case');
-            firstCase.innerText = firstLetter;
+      // Ajouter la grille à la page
+      document.body.appendChild(grid);
 
-            // Modifier le span en fonction du nombre de lettres
-            document.querySelector('#nbLettres').textContent = this.word.letters.length;
-    
-            // Afficher le nombre d'essais restants
-            const nbTriesElement = document.querySelector(".nbTries");
-            nbTriesElement.innerText = `Nombre d'essais restants : ${this.nbTries}`;
-    
-            // Appeler la méthode compareLetters
-            this.compareLetters();
-            // Appeler la méthode restart
-            this.restart();
-        });
+      // Afficher la première lettre du mot
+      const firstLetter = this.word.letters[0];
+      const firstCase = document.querySelector('.first-case');
+      firstCase.innerText = firstLetter;
+
+      // Modifier le span en fonction du nombre de lettres
+      document.querySelector('#nbLettres').textContent = this.word.letters.length;
+
+      // Afficher le nombre d'essais restants
+      const nbTriesElement = document.querySelector(".nbTries");
+      nbTriesElement.innerText = `Nombre d'essais restants : ${this.nbTries}`;
+
+      // Appeler la méthode compareLetters
+      this.compareLetters();
+      // Appeler la méthode restart
+      this.restart();
+  
     }
     
       restart() {
         game.gameOver = false;
+        game.nbTries = 10;
         let btnRestart = document.createElement('button');
         btnRestart.innerText = "Restart";
         btnRestart.classList.add('restart');
