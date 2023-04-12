@@ -1,21 +1,7 @@
 "use strict";
 window.addEventListener('load', (event) => {
-  class Word {
-    static async getWordsList() {
-      const response = await fetch("https://trouve-mot.fr/api/sizemin/6/2");
-      const words = await response.json();
-      return words.map(word => new Word(word.name));
-    }
-  
-    constructor(word) {
-      this.word= word.toUpperCase();
-      this.nbLetters = word.length;
-      this.letters = this.word.split("");
-    }
-  }
-  
 
-class Game {
+  class Game {
     constructor(nbLetters, nbTries) {
       this.nbLetters = nbLetters;
       this.nbTries = 10;
@@ -23,35 +9,32 @@ class Game {
     }
 
     generateGrid() {
-        let gridElement = document.createElement("div");
-        gridElement.classList.add("grid");
-    
-        // création des lignes de la grille
-        for (let i = 0; i < this.nbTries; i++) {
-          let rowElement = document.createElement("div");
-          rowElement.classList.add("row");
-          
-          // création des cases de chaque ligne
-          for (let j = 0; j < this.word.letters.length; j++) { 
-            let caseElement = document.createElement("div");
-            caseElement.classList.add("case");
-            rowElement.appendChild(caseElement);
-
-                // Ajouter la classe 'first-case' à la première case
-          if (j === 0) {
-            caseElement.classList.add('first-case');
-            caseElement.classList.add('letter');
-          }
-          
-          }
-    
-          gridElement.appendChild(rowElement);
-        }
-
-
+      let gridElement = document.createElement("div");
+      gridElement.classList.add("grid");
+  
+      // création des lignes de la grille
+      for (let i = 0; i < this.nbTries; i++) {
+        let rowElement = document.createElement("div");
+        rowElement.classList.add("row");
         
+        // création des cases de chaque ligne
+        for (let j = 0; j < this.word.letters.length; j++) { 
+          let caseElement = document.createElement("div");
+          caseElement.classList.add("case");
+          rowElement.appendChild(caseElement);
+
+              // Ajouter la classe 'first-case' à la première case
+        if (j === 0) {
+          caseElement.classList.add('first-case');
+          caseElement.classList.add('letter');
+        }
+        
+        }
+  
+        gridElement.appendChild(rowElement);
+        }
         return gridElement;
-      }
+  }
 
     compareLetters() {
       const grid = this.generateGrid();
@@ -73,7 +56,7 @@ class Game {
       // boucle qui compare les lettres
     
       for (let i = 0; i < letters_guess.length; i++) {
-     
+    
         let found = false;
         let letterWellplaced = false;
         let letterMisplaced = false;
@@ -112,24 +95,24 @@ class Game {
       }
   
       
-          // Vérifier si le joueur a perdu
-          if (this.nbTries === 0 && word_guess !== this.word.word) {
-          document.querySelector('.grid').style.display="none";
-          console.log('perdu');
-          document.querySelector('#results').innerHTML=`Vous  avez perdu le mot secret était : ${this.word.word}`;
-          this.gameOver = true;
-          return;
-          }
-          // Vérifier si le joueur a gagné
-          if (word_guess === this.word.word) {
-          document.querySelector('.grid').style.display="none";
-          document.querySelector('#results').textContent="Vous avez gagné!";
-          this.gameOver = true;
-          return;
-      
-          }
-          currentRow++;
-          console.log(currentRow);      
+        // Vérifier si le joueur a perdu
+        if (this.nbTries === 0 && word_guess !== this.word.word) {
+        document.querySelector('.grid').style.display="none";
+        console.log('perdu');
+        document.querySelector('#results').innerHTML=`Vous  avez perdu le mot secret était! + ${this.word.word}`;
+        this.gameOver = true;
+        return;
+        }
+        // Vérifier si le joueur a gagné
+        if (word_guess === this.word.word) {
+        document.querySelector('.grid').style.display="none";
+        document.querySelector('#results').textContent="Vous avez gagné!";
+        this.gameOver = true;
+        return;
+    
+        }
+        currentRow++;
+        console.log(currentRow);      
     });
     
     }
@@ -171,29 +154,26 @@ class Game {
   
     }
     
-      restart() {
-        game.gameOver = false;
-        game.nbTries = 10;
-        let btnRestart = document.createElement('button');
-        btnRestart.innerText = "Restart";
-        btnRestart.classList.add('restart');
-        btnRestart.setAttribute("id", "restart-button");
-        document.body.appendChild(btnRestart);
-        document.querySelector('#restart-button').addEventListener('click', function() {        
-        document.querySelector('#results').innerHTML='';
-        game.nbTries = 7;
-        btnRestart.remove();
-        game.start(10);
-        
-          });
-      }
-      
- 
+    restart() {
+      game.gameOver = false;
+      game.nbTries = 10;
+      let btnRestart = document.createElement('button');
+      btnRestart.innerText = "Restart";
+      btnRestart.classList.add('restart');
+      btnRestart.setAttribute("id", "restart-button");
+      document.body.appendChild(btnRestart);
+      document.querySelector('#restart-button').addEventListener('click', function() {        
+      document.querySelector('#results').innerHTML='';
+      game.nbTries = 7;
+      btnRestart.remove();
+      game.start(10);
+    
+        });
+    }
+    
   }
   
 let game = new Game(10);
 game.start();
-
-
 
 })
