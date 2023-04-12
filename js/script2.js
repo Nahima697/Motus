@@ -112,7 +112,7 @@ window.addEventListener('load', (event) => {
           if (this.nbTries === 0 && word_guess !== this.word.word) {
           document.querySelector('.grid').style.display="none";
           console.log('perdu');
-          document.querySelector('#results').innerHTML=`Vous  avez perdu le mot secret était! + ${this.word.word}`;
+          document.querySelector('#results').innerHTML=`Vous  avez perdu le mot secret était ${this.word.word}`;
           this.gameOver = true;
           return;
           }
