@@ -10,18 +10,33 @@ class Word {
   }
 
   static getWordsList() {
-    const animals = new Word("ANIMALS", 7, "English");
-    const animaux = new Word("ANIMAUX", 7, "Français");
-    const jaccuzi = new Word("JACUZZI", 7, "Français");
-    const hockeys = new Word("HOCKEYS", 7, "Français");
-    const cryptez = new Word("CRYPTEZ", 7, "Français");
-    const chien = new Word("CHIEN", 5, "Français");
-    const chat = new Word("CHAT", 4, "Français");
-    const pomme = new Word("POMME", 5, "Français");
-    const apple = new Word("APPLE", 5, "English");
-    const banana = new Word("BANANA", 6, "English");
+    // const animals = new Word("ANIMALS", 7, "English");
+    // const animaux = new Word("ANIMAUX", 7, "Français");
+    // const jaccuzi = new Word("JACUZZI", 7, "Français");
+    // const hockeys = new Word("HOCKEYS", 7, "Français");
+    // const cryptez = new Word("CRYPTEZ", 7, "Français");
+    // const chien = new Word("CHIEN", 5, "Français");
+    // const chat = new Word("CHAT", 4, "Français");
+    // const pomme = new Word("POMME", 5, "Français");
+    // const apple = new Word("APPLE", 5, "English");
+    // const banana = new Word("BANANA", 6, "English");
 
-    return [animals, animaux, jaccuzi, hockeys, cryptez, chien, chat, pomme, apple, banana];
+
+    // return [animals, animaux, jaccuzi, hockeys, cryptez, chien, chat, pomme, apple, banana];
+    let wordsList = JSON.parse(localStorage.getItem("words"));
+    if (!wordsList) {
+        return fetch("https://trouve-mot.fr/api/sizemin/6/2")
+            .then(response => response.json())
+            .then(words => {
+                wordsList = words.map(word => new Word(word.name.toUpperCase()));
+                localStorage.setItem("words", JSON.stringify(wordsList));
+                return wordsList;
+            })
+            .catch(err => console.error(err));
+    } else {
+        return Promise.resolve(wordsList.map(word => new Word(word.name.toUpperCase())));
+    }
+
   }
   
 }
@@ -123,32 +138,29 @@ class Game {
     
     }
 
-      start() {
-        
-        // choix du mot aléatoire
-        const wordsList = Word.getWordsList();
-        console.log(wordsList);
-        const randomIndex = Math.floor(Math.random() * wordsList.length);
-        this.word = wordsList[randomIndex];
-        this.nbLetters = this.word.nbLetters;
-        // Générer la grille
-        const grid = this.generateGrid();
-      
-        // Ajouter la grille à la page
-        document.body.appendChild(grid);
-
-         // Afficher le nombre d'essais restants
-        const nbTriesElement = document.querySelector(".nbTries");
-        nbTriesElement.innerText = `Nombre d'essais restants : ${this.nbTries}`;
-  
-        // Ajouter un eventlistener à l'élément d'entrée pour mettre à jour this.letters_guess
-        console.log(this.letters_guess);
-        
-        // Appeler la méthode compareLetters
-        this.compareLetters();
-        this.restart();
-
-      }
+    start() {
+        Word.getWordsList().then(wordsList => {
+            console.log(wordsList);
+            const randomIndex = Math.floor(Math.random() * wordsList.length);
+            this.word = wordsList[randomIndex];
+            this.nbLetters = this.word.nbLetters;
+            // Générer la grille
+            const grid = this.generateGrid();
+    
+            // Ajouter la grille à la page
+            document.body.appendChild(grid);
+    
+            // Afficher le nombre d'essais restants
+            const nbTriesElement = document.querySelector(".nbTries");
+            nbTriesElement.innerText = `Nombre d'essais restants : ${this.nbTries}`;
+    
+            // Appeler la méthode compareLetters
+            this.compareLetters();
+            // Appeler la méthode restart
+            this.restart();
+        });
+    }
+    
 
       restart() {
         game.gameOver = false;
