@@ -95,7 +95,7 @@ class Game {
         }
         
         // Mettre à jour l'affichage des lettres avec un délai
-        setTimeout(() => {
+        // setTimeout(() => {
         if (found) {
           rows[currentRow].querySelectorAll('.case')[i].innerText = letters_guess[i];
           rows[currentRow].querySelectorAll('.case')[i].classList.add("letter");
@@ -108,7 +108,7 @@ class Game {
           rows[currentRow].querySelectorAll('.case')[i].innerText = letters_guess[i];
           rows[currentRow].querySelectorAll('.case')[i].classList.add("letter");
         }
-      },  i * 200)
+      // },  i * 200)
       }
   
       
@@ -116,7 +116,7 @@ class Game {
           if (this.nbTries === 0 && word_guess !== this.word.word) {
           document.querySelector('.grid').style.display="none";
           console.log('perdu');
-          document.querySelector('#results').innerHTML="Vous avez perdu!";
+          document.querySelector('#results').innerHTML=`Vous  avez perdu le mot secret était! + ${this.word.word}`;
           this.gameOver = true;
           return;
           }
@@ -176,13 +176,14 @@ class Game {
         game.nbTries = 10;
         let btnRestart = document.createElement('button');
         btnRestart.innerText = "Restart";
+        btnRestart.classList.add('restart');
         btnRestart.setAttribute("id", "restart-button");
         document.body.appendChild(btnRestart);
         document.querySelector('#restart-button').addEventListener('click', function() {        
         document.querySelector('#results').innerHTML='';
         game.nbTries = 7;
         btnRestart.remove();
-        game.start(7,10);
+        game.start(10);
         
           });
       }
@@ -190,7 +191,7 @@ class Game {
  
   }
   
-let game = new Game(7,10);
+let game = new Game(10);
 game.start();
 
 
