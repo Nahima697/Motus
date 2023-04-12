@@ -1,6 +1,6 @@
 "use strict";
 
-window.addEventListener('DomContentLoaded', () => {
+window.addEventListener('load', () => {
   
    
 class Game {

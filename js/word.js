@@ -1,5 +1,5 @@
 "use strict";
-window.addEventListener('DOMContentLoaded', (event) => {
+window.addEventListener('load', (event) => {
 
 class Word {
   constructor(word, nbLetters, language) {
