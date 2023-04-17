@@ -2,7 +2,7 @@
 window.addEventListener('load', (event) => {
   class Word {
     static async getWordsList() {
-      const response = await fetch("https://trouve-mot.fr/api/sizemin/6/2");
+      const response = await fetch("https://trouve-mot.fr/api/size/7");
       const words = await response.json();
       return words.map(word => new Word(word.name));
     }
@@ -52,7 +52,7 @@ window.addEventListener('load', (event) => {
       compareLetters() {
         const grid = this.generateGrid();
         const rows = document.querySelectorAll('.row');
-        let currentRow = 0 
+        let currentRow = 0; 
         const btnValider = document.querySelector(".btnValider");
         btnValider.addEventListener("click", () => {
         const word_guess = document.querySelector("#guess").value.toUpperCase();
@@ -99,6 +99,7 @@ window.addEventListener('load', (event) => {
               rows[currentRow].querySelectorAll('.case')[i].classList.add("wellplaced");
             } else if (letterMisplaced) {
               rows[currentRow].querySelectorAll('.case')[i].classList.add("misplaced");
+              console.log(rows[currentRow]);
             }
           } else {
             rows[currentRow].querySelectorAll('.case')[i].innerText = letters_guess[i];
