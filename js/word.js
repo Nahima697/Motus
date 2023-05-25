@@ -1,6 +1,5 @@
 "use strict";
-window.addEventListener('load', (event) => {
- 
+
     class Word {
       static async getWordsList() {
         const response = await fetch("https://trouve-mot.fr/api/sizemin/6/2");
@@ -38,5 +37,3 @@ window.addEventListener('load', (event) => {
 //     return [animals, animaux, jaccuzi, hockeys, cryptez, chien, chat, pomme, apple, banana];
 //   }
   
-}
-)

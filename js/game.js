@@ -1,5 +1,4 @@
 "use strict";
-window.addEventListener('load', (event) => {
 
   class Game {
     constructor(nbLetters, nbTries) {
@@ -175,5 +174,3 @@ window.addEventListener('load', (event) => {
   
 let game = new Game(10);
 game.start();
-
-})
